@@ -1,0 +1,284 @@
+{
+    "qmrOrg": "MDXP",
+    "qmrs": [
+        {
+            "channels": [
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_ADXP_TO_MDXP_S",
+                    "channelType": "rcvr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_DDXP_TO_MDXP_R",
+                    "channelType": "rcvr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_DDXP_TO_MDXP_T",
+                    "channelType": "rcvr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_FDXP_TO_MDXP_S",
+                    "channelType": "rcvr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_MDXP_TO_DDXP_R",
+                    "channelType": "sdr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_MDXP_TO_DDXP_S",
+                    "channelType": "sdr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "C_SODB_TO_MDXP_S",
+                    "channelType": "rcvr"
+                },
+                {
+                    "channelRunningState": "MQCHS_INACTIVE",
+                    "channelName": "DDXPQMGR.TO.MDXPQMGR",
+                    "channelType": "rcvr"
+                },
+                {
+                    "channelRunningState": "MQCHS_RETRYING",
+                    "channelName": "MDXPQMGR.TO.DDXPQMGR",
+                    "channelType": "sdr"
+                },
+                {
+                    "channelRunningState": "MQCHS_RUNNING",
+                    "channelName": "MDXP_ADMIN_CHANNEL",
+                    "channelType": "svrconn"
+                }
+            ],
+            "qmrIp": "10.232.90.68",
+            "queues": [
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "DDXPQMGR",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_ADXP_TO_MDXP_S",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_ADXP_TO_MDXP_S_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_DDXP_TO_MDXP_R",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_DDXP_TO_MDXP_R_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_DDXP_TO_MDXP_T",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_FDXP_TO_MDXP_S",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_FDXP_TO_MDXP_S_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_MDXP_TO_SUBSYS_R",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_MDXP_TO_SUBSYS_R_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "3244",
+                    "queueName": "LQ_MDXP_TO_SUBSYS_S",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_MDXP_TO_SUBSYS_S_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_SODB_TO_MDXP_S",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_SODB_TO_MDXP_S_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_SUBSYS_TO_MDXP_R",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_SUBSYS_TO_MDXP_R_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_SUBSYS_TO_MDXP_S",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "LQ_SUBSYS_TO_MDXP_S_BACKOUT",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.DEFAULT.DEADLETTER.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.INNER.REQUEST.BACKOUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.INNER.REQUEST.INPUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.INNER.RESPONSE.BACKOUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.INNER.RESPONSE.INPUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.OUTTER.REQUEST.BACKOUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.OUTTER.REQUEST.INPUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueName": "MDXP.OUTTER.REQUEST.REMOTE.QUEUE",
+                    "queueType": "qremote"
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.OUTTER.RESPONSE.BACKOUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "MDXP.OUTTER.RESPONSE.INPUT.QUEUE",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueName": "MDXP.OUTTER.RESPONSE.REMOTE.QUEUE",
+                    "queueType": "qremote"
+                },
+                {
+                    "queueName": "RQ_MDXP_TO_DDXP_R",
+                    "queueType": "qremote"
+                },
+                {
+                    "queueName": "RQ_MDXP_TO_DDXP_S",
+                    "queueType": "qremote"
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "TQ_MDXP_TO_DDXP_R",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                },
+                {
+                    "queueCurrentDepth": "0",
+                    "queueName": "TQ_MDXP_TO_DDXP_S",
+                    "queuePersistentce": "",
+                    "queueType": "qlocal",
+                    "queueMaxDepth": ""
+                }
+            ],
+            "listenerRunningState": "MQSVC_STATUS_RUNNING",
+            "qmrName": "MDXPQMGR",
+            "listenerPort": "1414"
+        }
+    ]
+}

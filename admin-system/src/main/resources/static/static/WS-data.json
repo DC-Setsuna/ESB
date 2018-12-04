@@ -1,0 +1,24 @@
+[
+	{
+		"platform": "ADXP",
+		"service_code": "ADXP_HR_O_EMP_INFO",
+		"count": 120,
+		"success": 100,
+		"fail": 20,
+		"rate": "20%",
+		"last": "success",
+		"last_time": "2018/03/03 10:00",
+		"last_fail": "2018/03/01 10:00"
+	},
+	{
+		"platform": "ADXP",
+		"service_code": "ADXP_HR_O_EMP_EMP",
+		"count": 120,
+		"success": 100,
+		"fail": 20,
+		"rate": "20%",
+		"last": "success",
+		"last_time": "2018/03/03 10:00",
+		"last_fail": "2018/03/01 10:00"
+	}
+]

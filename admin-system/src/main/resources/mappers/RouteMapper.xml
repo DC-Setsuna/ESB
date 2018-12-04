@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.admin.adminsystem.dao.RouteDao">
+    <insert id="backup">
+        INSERT INTO ROUTE_CONFIG_HIS
+        (PK_ROUTE, SERVICE_CODE, SERVICE_VERSION,
+        SENDER_ORG, SENDER, RECEIVER_ORG, RECEIVER,
+        ENABLED_FLAG, REMARK, INSERT_TIMESTAMP,
+        LAST_UPDATE_TIMESTAMP, CREATOR, MODIFIER,
+        SVC_TYPE, SVC_METHOD, BKUP_TIMESTAMP)
+        SELECT
+        PK_ROUTE, SERVICE_CODE, SERVICE_VERSION,
+        SENDER_ORG, SENDER, RECEIVER_ORG, RECEIVER,
+        ENABLED_FLAG, REMARK, INSERT_TIMESTAMP,
+        LAST_UPDATE_TIMESTAMP, CREATOR, MODIFIER,
+        SVC_TYPE, SVC_METHOD, CURRENT_DATE
+        FROM ROUTE_CONFIG
+    </insert>
+    <insert id="insert" parameterType="java.util.HashMap">
+        INSERT INTO ROUTE_CONFIG
+        (PK_ROUTE, SERVICE_CODE, SERVICE_VERSION,
+        SENDER_ORG, SENDER, RECEIVER_ORG, RECEIVER,
+        ENABLED_FLAG, REMARK, INSERT_TIMESTAMP,
+        LAST_UPDATE_TIMESTAMP, CREATOR, MODIFIER,
+        SVC_TYPE, SVC_METHOD)
+        VALUES(#{PK_ROUTE}, #{SERVICE_CODE}, #{SERVICE_VERSION},
+        #{SENDER_ORG}, #{SENDER}, #{RECEIVER_ORG}, #{RECEIVER},
+        #{ENABLED_FLAG}, #{REMARK}, current_timestamp,
+        current_timestamp, #{CREATOR}, #{MODIFIER},
+        #{SVC_TYPE}, #{SVC_METHOD})
+    </insert>
+    <delete id="delete">
+        DELETE FROM ROUTE_CONFIG
+    </delete>
+</mapper>

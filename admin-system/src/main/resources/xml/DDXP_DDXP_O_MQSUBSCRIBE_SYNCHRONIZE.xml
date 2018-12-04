@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Msg>
+<Head>
+<Svc_ServiceCode>DDXP_DDXP_O_MQSUBSCRIBE_SYNCHRONIZE</Svc_ServiceCode>
+<Svc_Version>1.0</Svc_Version>
+<Svc_Sender_Org>DDXP</Svc_Sender_Org>
+<Svc_Sender>DDXP</Svc_Sender>
+<Svc_Receiver_Org></Svc_Receiver_Org>
+<Svc_Receiver></Svc_Receiver>
+<Svc_SerialNumber></Svc_SerialNumber>
+<Svc_SessionId>20171228140658867</Svc_SessionId>
+<Svc_SendTimeStamp>20171228140658867</Svc_SendTimeStamp>
+</Head>
+<Body>
+	<SubScribes>
+		<SubScribe>
+			<Svc_ServiceCode>MDXP_HR_O_POST_MODIFY</Svc_ServiceCode>
+		   <Svc_Type>推送</Svc_Type>
+		   <Svc_Sender>NAOMS</Svc_Sender>
+		   <Svc_Receiver>FIDS,PA</Svc_Receiver>
+		   <OperationTime>20180313180303203</OperationTime> 
+		</SubScribe>
+		<SubScribe>
+			<Svc_ServiceCode>MDXP_HR_O_POST_ADD</Svc_ServiceCode>
+		   <Svc_Type>请求</Svc_Type>
+		   <Svc_Sender>FIDS,PA</Svc_Sender>
+		   <Svc_Receiver>NAOMS</Svc_Receiver>
+		   <OperationTime>20180313180303203</OperationTime> 
+		</SubScribe>
+		
+	</SubScribes>
+</Body>
+</Msg>

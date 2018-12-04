@@ -1,0 +1,27 @@
+{
+  "qmrOrg": "",
+  "qmrs": [
+    {
+      "qmrName": "",
+      "qmrIp": "",
+      "listenerPort": "",
+      "listenerRunningState": "",
+      "queues": [
+        {
+          "queueName": "",
+          "queueType": "",
+          "queueMaxDepth": "",
+          "queueCurrentDepth": "",
+          "queuePersistentce": ""
+        }
+      ],
+      "channels": [
+        {
+          "channelName": "",
+          "channelType": "",
+          "channelRunningState": ""
+        }
+      ]
+    }
+  ]
+}

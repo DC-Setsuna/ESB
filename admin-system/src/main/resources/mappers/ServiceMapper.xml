@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.admin.adminsystem.dao.ServiceDao">
+    <insert id="backup">
+        INSERT INTO SERVICE_HIS
+        (PK_SERVICE, SERVICE_CODE, SERVICE_VERSION,
+        OWNER_ORG, OWNER, ENABLED_FLAG, TYPE,
+        REMARK, INSERT_TIMESTAMP,
+        LAST_UPDATE_TIMESTAMP, CREATOR, MODIFIER,
+        SVC_TYPE, SVC_PROXYURL, SVC_REALURL, SVC_EXAMPLE, BKUP_TIMESTAMP)
+        SELECT
+        PK_SERVICE, SERVICE_CODE, SERVICE_VERSION,
+        OWNER_ORG, OWNER, ENABLED_FLAG, TYPE,
+        REMARK, INSERT_TIMESTAMP,
+        LAST_UPDATE_TIMESTAMP, CREATOR, MODIFIER,
+        SVC_TYPE, SVC_PROXYURL, SVC_REALURL, SVC_EXAMPLE, CURRENT_DATE
+        FROM SERVICE
+    </insert>
+    <insert id="insert" parameterType="java.util.HashMap">
+        INSERT INTO SERVICE
+        (PK_SERVICE, SERVICE_CODE, SERVICE_VERSION,
+        OWNER_ORG, OWNER, ENABLED_FLAG, TYPE,
+        REMARK, INSERT_TIMESTAMP,
+        LAST_UPDATE_TIMESTAMP, CREATOR, MODIFIER,
+        SVC_TYPE, SVC_PROXYURL, SVC_REALURL, SVC_EXAMPLE)
+        VALUES(#{PK_SERVICE}, #{SERVICE_CODE}, #{SERVICE_VERSION},
+        #{OWNER_ORG}, #{OWNER}, #{ENABLED_FLAG}, #{TYPE},
+        #{REMARK}, current_timestamp,
+        current_timestamp, #{CREATOR}, #{MODIFIER},
+        #{SVC_TYPE}, #{SVC_PROXYURL}, #{SVC_REALURL}, #{SVC_EXAMPLE})
+    </insert>
+    <delete id="delete">
+        DELETE FROM SERVICE
+    </delete>
+</mapper>

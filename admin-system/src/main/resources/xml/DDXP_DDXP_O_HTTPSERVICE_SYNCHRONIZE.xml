@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Msg>
+<Head>
+<Svc_ServiceCode>DDXP_DDXP_O_HTTPSERVICE_SYNCHRONIZE</Svc_ServiceCode>
+<Svc_Version>1.0</Svc_Version>
+<Svc_Sender_Org>DDXP</Svc_Sender_Org>
+<Svc_Sender>DDXP</Svc_Sender>
+<Svc_Receiver_Org></Svc_Receiver_Org>
+<Svc_Receiver></Svc_Receiver>
+<Svc_SerialNumber></Svc_SerialNumber>
+<Svc_SessionId>20171228140658867</Svc_SessionId>
+<Svc_SendTimeStamp>20171228140658867</Svc_SendTimeStamp>
+</Head>
+<Body>
+	<Services>
+		<Service>
+			<Svc_ServiceCode>MDXP_HR_O_POST_MODIFY</Svc_ServiceCode>
+			<Svc_Version>1.0</Svc_Version>
+			<Svc_Provider_Org>MDXP</Svc_Provider_Org>
+			<Svc_Provider>HR</Svc_Provider>
+			<Svc_Type>请求</Svc_Type>
+			<Svc_Catalog>WS</Svc_Catalog>
+			<Svc_Desc>岗位更新接口</Svc_Desc>
+			<Svc_ProxyUrl>http://proxyURL.qdjc.com/aa.do</Svc_ProxyUrl>
+			<Svc_RealUrl>http://mdxp.qdjc.com/aa.do</Svc_RealUrl>
+			<Svc_Example>Example</Svc_Example>
+			<OperationTime>20180313180303203</OperationTime> 
+		</Service>
+		<Service>
+			<Svc_ServiceCode>MDXP_HR_O_POST_IFRQ</Svc_ServiceCode>
+			<Svc_Version>1.0</Svc_Version>
+			<Svc_Provider_Org>MDXP</Svc_Provider_Org>
+			<Svc_Provider>HR</Svc_Provider>
+			<Svc_Type>发送</Svc_Type>
+			<Svc_Catalog>REST</Svc_Catalog>
+			<Svc_Desc>岗位券表请求接口</Svc_Desc>
+			<Svc_ProxyUrl>http://proxyURL.qdjc.com/aa.do</Svc_ProxyUrl>
+			<Svc_RealUrl>http://mdxp.qdjc.com/aa.do</Svc_RealUrl>
+			<Svc_Example>Example</Svc_Example>
+			<OperationTime>20180313180303203</OperationTime> 
+		</Service>
+	</Services>
+</Body>
+</Msg>
