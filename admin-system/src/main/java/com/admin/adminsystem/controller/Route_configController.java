@@ -263,7 +263,7 @@ public class Route_configController {
         } catch (Exception e){
             // If the query fails, custom code 400,Exception message, and data are returned
             list.put("code", 400);
-            list.put("message","ok");
+            list.put("message", e.toString());
             list.put("data","");
             return list;
         }

@@ -18,9 +18,9 @@
       <el-table-column prop="pk_SYSTEMUSER" label="System User ID" width="245"></el-table-column>
       <el-table-column prop="systemuser_CODE" label="系统用户编号"></el-table-column>
       <el-table-column prop="systemuser_ORG" label="系统用户平台"></el-table-column>
-      <el-table-column prop="sender" label="插入时间"></el-table-column>
-      <el-table-column prop="receiver_ORG" label="上次修改时间"></el-table-column>
-      <el-table-column prop="receiver" label="创建者"></el-table-column>
+      <el-table-column prop="insert_TIMESTAMP" label="插入时间"></el-table-column>
+      <el-table-column prop="last_UPDATE_TIMESTAMP" label="上次修改时间"></el-table-column>
+      <el-table-column prop="creator" label="创建者"></el-table-column>
       <el-table-column label="操作" width="80" fixed="right" :resizable="false">
         <template scope="scope">
           <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
@@ -41,7 +41,7 @@
         </tr>
         <tr v-for="(value, key) in detail">
           <td width="230">
-            {{key}}
+            {{detail_CN[key]}}
           </td>
 					<td>{{value}}</td>
         </tr>
@@ -206,7 +206,17 @@ export default {
         REMARK: ""
       },
       editVisible: false,
-      editID: ''
+      editID: '',
+      detail_CN: {
+        'insert_TIMESTAMP': '插入时间',
+        'last_UPDATE_TIMESTAMP': '上次更新时间',
+        'pk_SYSTEMUSER': '数据库主键ID',
+        'creator': '创建者',
+        'modifier': '修改者',
+        'systemuser_ORG': '系统用户平台',
+        'systemuser_CODE': '系统用户编码',
+        'systemuser_DESC': '系统用户描述'
+      }
     }
   },
   methods: {
@@ -236,6 +246,7 @@ export default {
             duration: 3000
           });
           this.getData()
+          this.getPage()
         }).catch((error) => {
           loading.close()
           this.$notify({

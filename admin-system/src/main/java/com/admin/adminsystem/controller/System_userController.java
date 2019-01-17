@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class System_userController {
 
     @Autowired
     private SystemuserJPA systemuserJPA;
+
 
 
     @RequestMapping(value = "/api/system/select-all", method = GET)
@@ -73,5 +75,41 @@ public class System_userController {
         json.put("message","ok");
         json.put("data",system.getTotalElements());
         return json;
+    }
+
+    /**
+     * List by condition json object.
+     *
+     * @param request the request
+     * @return the json object
+     */
+    @ResponseBody
+    @RequestMapping(value = "/api/system/selectbycondition", method = GET)
+    public JSONObject listByCondition(HttpServletRequest request) {
+        JSONObject list=new JSONObject();
+        // Get the request parameter key
+        String key = request.getParameter("key");
+
+        List<SystemuserEntity> system;
+        try {
+            // If the key is empty, all are queried
+            if (key.equals("") || key == null){
+                system = systemuserJPA.findAll();
+            } else {
+                // If it is not empty, query by condition
+                system = systemuserJPA.findSystemByCondition(key);
+            }
+        } catch (Exception e){
+            // If select success ,return custom status 400 and Exeption messages
+            list.put("code","400");
+            list.put("message",e.getMessage().toString());
+            list.put("data","");
+            return list;
+        }
+        // If select success ,return custom status 200、message and date
+        list.put("code","200");
+        list.put("message","ok");
+        list.put("data",system);//.getContent()
+        return list;
     }
 }

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by DC on 2018/8/24.
@@ -91,7 +92,11 @@ public class Sync {
                         for (Element element2 : li) {
                             String key = element2.getName();
                             String value = element2.getText();
-                            item.put(key, value);
+                            if (key.equals("PK_SYSTEMUSER")) {
+                                item.put("PK_SYSTEMUSER", UUID.randomUUID().toString().replace("-","").toLowerCase());
+                            } else {
+                                item.put(key, value);
+                            }
                         }
                         lists.add(item);
                     }

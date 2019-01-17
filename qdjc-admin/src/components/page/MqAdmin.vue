@@ -44,7 +44,7 @@
         </div>
       </el-collapse-item>
       <el-collapse-item title="Queue" name="3">
-        <div style="padding-left:20px;">
+        <!-- <div style="padding-left:20px;">
         	<table width="500" cellspacing="0" cellpadding="3">
         		<tr align="left" style="background-color:#eee;">
         			<th>Name</th>
@@ -57,7 +57,16 @@
         			<td>{{item.currentdepth}}</td>
         		</tr>
         	</table>
-        </div>
+        </div> -->
+        <el-table :data="queueVisible" border style="width: 100%" ref="multipleTable">
+            <el-table-column prop="name" label="Name"></el-table-column>
+            <el-table-column prop="type" label="Type"></el-table-column>
+            <el-table-column prop="currentdepth" label="CurrentDepth"></el-table-column>
+        </el-table>
+            <div class="pagination">
+            <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="total" :page-size="10">
+            </el-pagination>
+            </div>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -77,14 +86,17 @@ export default {
             status: ''
         },
         queue: [],
-        activeNames: ['1','2','3']
+        activeNames: ['1','2','3'],
+        cur_page: 1,
+        queueVisible: [],
+        total:  0
     }
   },
   methods: {
     getManagers() {
         this.axios.get(this.api + '/api/Mqadmin/qmgr').then((response) => {
-            this.qmgr.name = response.data.data['qmgr'][0]['name']
-            if (response.data.data['qmgr'][0]['state'] === 'RUNNING') {
+            this.qmgr.name = response.data.data[0]['name']
+            if (response.data.data[0]['status'] === 'RUNNING') {
                 this.qmgr.status = 'running'
             } else {
                 this.qmgr.status = 'disabled'
@@ -105,8 +117,26 @@ export default {
     getQueens() {
         this.axios.get(this.api + '/api/Mqadmin/qmgr/queue').then((response) => {
             this.queue = response.data.data
+            this.total = this.queue.length;
+            this.setVisibleData();
         })
-    }
+    },
+    handleCurrentChange(val) {
+      this.cur_page = val;
+      this.setVisibleData();
+    },
+    setVisibleData() {
+        debugger;
+      var start = 10 * (this.cur_page - 1) + 1;
+      var end = 10 * this.cur_page;
+      var data = []
+      for (let i = 0; i < this.queue.length; i++) {
+        if (i >= (start - 1) && i <= (end - 1)) {
+          data.push(this.queue[i])
+        }
+      }
+      this.queueVisible = data;
+    },
   },
   created: function() {
     this.getManagers()
@@ -118,5 +148,8 @@ export default {
 </script>
 <style>
 
-
+.pagination {
+  margin: 20px 0;
+  text-align: right;
+}
 </style>

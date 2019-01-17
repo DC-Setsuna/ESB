@@ -40,7 +40,7 @@
         </tr>
         <tr v-for="(value, key) in detail">
           <td width="230">
-            {{key}}
+            {{detail_CN[key]}}
           </td>
           <td>{{value}}</td>
         </tr>
@@ -209,7 +209,23 @@ export default {
         REMARK: ""
       },
       editVisible: false,
-      editID: ''
+      editID: '',
+      detail_CN: {
+        'REMARK': '备注',
+        'insert_TIMESTAMP': '插入时间',
+        'last_UPDATE_TIMESTAMP': '上次更新时间',
+        'pk_ROUTE': '数据库主键ID',
+        'sender_ORG': '发送平台',
+        'sender': '发送系统',
+        'receiver_ORG': '接收平台',
+        'receiver': '接收系统',
+        'service_CODE': '服务编号',
+        'service_VERSION': '服务版本',
+        'creator': '创建者',
+        'enabled_FLAG': '是否可用(1为可用，0为不可用)',
+        'remark': '备注',
+        'modifier': '修改者'
+      }
     }
   },
   methods: {
@@ -239,6 +255,7 @@ export default {
             duration: 3000
           });
           this.getData()
+          this.getPage()
         }).catch((error) => {
           loading.close()
           this.$notify({

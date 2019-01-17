@@ -1,6 +1,5 @@
 package com.admin.adminsystem.jpa;
 
-import com.admin.adminsystem.entity.Route_configEntity;
 import com.admin.adminsystem.entity.ServiceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +18,6 @@ public interface ServiceJPA extends JpaRepository<ServiceEntity, String> {
      * @param key the key
      * @return the list
      */
-    @Query(value = "select * from SERVICE t where t.SERVICE_CODE = ?1 or t.OWNER_ORG = ?1 or t.OWNER = ?1",nativeQuery=true)
+    @Query(value = "select * from SERVICE t where t.SERVICE_CODE like %?1% or t.OWNER_ORG like %?1% or t.OWNER like %?1%",nativeQuery=true)
     List<ServiceEntity> findServiceByCondition(String key);
 }

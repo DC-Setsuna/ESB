@@ -50,6 +50,9 @@
                 <el-switch v-model="filter.showError" active-text="不包含错误信息" inactive-text="所有日志记录">
                 </el-switch>
               </el-form-item>
+              <el-form-item style="margin-left: 28px;">
+                <el-button @click="clear">清空过滤项</el-button>
+              </el-form-item>
             </div>
             <div>
               <el-button @click="getData" type="primary" icon="el-icon-search">搜索</el-button>
@@ -194,9 +197,14 @@ export default {
 
     },
     handleDetail(index, row) {
-      console.log(row);
+      var loading = this.$loading({
+          lock: true,
+          text: '正在拉取日志详情',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
       this.axios.post(this.api + '/selectmsgbynumber', { serial_number: row.serial_NUMBER }).then((response) => {
-        console.log(response.data);
+        loading.close();
         var datas = response.data.data;
         this.detailData.sender_org = datas[0].sender_ORG;
         this.detailData.sender = datas[0].sender;
@@ -220,6 +228,8 @@ export default {
         }
         this.detailVisible = true;
 
+      }).catch(error => {
+        loading.close()
       })
     },
     handleCurrentChange(val) {
@@ -237,6 +247,13 @@ export default {
     //   }
     //   this.tableVisibleData = data;
     // },
+    clear() {
+      this.filter['LOG_TIMESTAMP'] = '',
+      this.filter['sender_org'] = '',
+      this.filter['sender'] = '',
+      this.filter['receiver_org'] = '',
+      this.filter['receiver'] = ''
+    }
   },
   watch: {
     filter: {

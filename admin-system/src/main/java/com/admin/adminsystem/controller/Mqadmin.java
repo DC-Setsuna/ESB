@@ -120,7 +120,7 @@ public class Mqadmin {
         try {
             Response response = client.newCall(request).execute();
             String data = response.body().string();
-            JSONObject jsonObject = JSONObject.parseObject(data);
+            JSONArray jsonObject = JSONArray.parseArray(data);
             list.put("code",200);
             list.put("message","ok");
             list.put("data", jsonObject);

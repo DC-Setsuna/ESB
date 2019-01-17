@@ -8,7 +8,8 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   state: {
   	// api: 'http://localhost:8080',
-  	api: 'http://10.232.90.68:8080', 
+    // api: 'http://10.232.90.68:8080', 
+    api: '', 
     platform: [
       { value: 'DDXP', label: '数据交换平台' },
       { value: 'ADXP', label: '生产运行平台' },

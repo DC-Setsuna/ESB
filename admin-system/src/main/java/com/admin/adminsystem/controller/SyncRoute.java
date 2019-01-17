@@ -164,12 +164,34 @@ public class SyncRoute {
                     for (Element e : systemUsers) {
                         List<Element> li = e.elements();
                         HashMap<String, String> item = (HashMap<String, String>) headMap.clone();
+                        ArrayList<HashMap<String, String>> items = new ArrayList();
                         for (Element element2 : li) {
                             String key = element2.getName();
                             String value = element2.getText();
                             item.put(key, value);
                         }
-                        list.add(item);
+                        String[] sender = item.get("Svc_Sender").split(",");
+                        String[] receiver = item.get("Svc_Receiver").split(",");
+                        if (sender.length != 1 && sender.length > 0) {
+                            for (int i = 0; i < sender.length; i ++) {
+                                HashMap<String, String> item_copy = (HashMap<String, String>) item.clone();
+                                item_copy.put("Svc_Sender", sender[i]);
+                                items.add(item_copy);
+                            }
+                        }
+                        if (receiver.length != 1 && receiver.length > 0) {
+                            for (int i = 0; i < receiver.length; i ++) {
+                                HashMap<String, String> item_copy = (HashMap<String, String>) item.clone();
+                                item_copy.put("Svc_Receiver", receiver[i]);
+                                items.add(item_copy);
+                            }
+                        }
+                        if (items.isEmpty()) {
+                            list.add(item);
+                        } else {
+                            list.addAll(items);
+                        }
+
                     }
                 }
             }
