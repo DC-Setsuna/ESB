@@ -34,23 +34,32 @@ public class Sync {
     @Resource
     SystemUserDao dao;
 
+    private static final HashMap<String, String> mapping = new HashMap<>();
+    static {
+        mapping.put("SystemUserOrg", "SYSTEMUSER_ORG");
+        mapping.put("SystemUserCode", "SYSTEMUSER_CODE");
+        mapping.put("SystemUserDesc", "SYSTEMUSER_DESC");
+    }
+
     public static String callAPI(String url) {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .get()
-                .addHeader("Cache-Control", "no-cache")
-                .build();
-
-        Response response = null;
-        String data = "";
-        try {
-            response = client.newCall(request).execute();
-            data = response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        OkHttpClient client = new OkHttpClient();
+//
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .get()
+//                .addHeader("Cache-Control", "no-cache")
+//                .build();
+//
+//        Response response = null;
+//        String data = "";
+//        try {
+//            response = client.newCall(request).execute();
+//            data = response.body().string();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        SyncSoap syncSoap = new SyncSoap();
+        String data = syncSoap.getXMLdata(url);
         return data;
     }
 
@@ -74,7 +83,7 @@ public class Sync {
         if(this.backupSystemuser()) {
             this.dropSystem();
         }
-        String xmlData = this.callAPI("http://localhost:8080/sync/system");
+        String xmlData = this.callAPI("http://10.232.83.21:9998/ws/synchronize/systemusers");
         Document doc;
         List<HashMap<String, String>> lists = null;
         try {
@@ -91,13 +100,21 @@ public class Sync {
                         HashMap<String, String> item = new HashMap<String, String>();
                         for (Element element2 : li) {
                             String key = element2.getName();
-                            String value = element2.getText();
-                            if (key.equals("PK_SYSTEMUSER")) {
-                                item.put("PK_SYSTEMUSER", UUID.randomUUID().toString().replace("-","").toLowerCase());
+                            String value = null;
+                            if (mapping.containsKey(key)) {
+                                value = mapping.get(key);
                             } else {
-                                item.put(key, value);
+                                value = element2.getText();
                             }
+
+                            item.put(key, value);
+//                            if (key.equals("PK_SYSTEMUSER")) {
+//                                item.put("PK_SYSTEMUSER", UUID.randomUUID().toString().replace("-","").toLowerCase());
+//                            } else {
+//                                item.put(key, value);
+//                            }
                         }
+                        item.put("PK_SYSTEMUSER", UUID.randomUUID().toString().replace("-","").toLowerCase());
                         lists.add(item);
                     }
                 }

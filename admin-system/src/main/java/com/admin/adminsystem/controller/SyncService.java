@@ -28,9 +28,11 @@ public class SyncService {
     @Resource
     ServiceDao serviceDao;
 
-    private static final String HTTPSERVICE_SYNCHRONIZE_API = "http://localhost:8080/sync/service-http";
+//    private static final String HTTPSERVICE_SYNCHRONIZE_API = "http://localhost:8080/sync/service-http";
+    private static final String HTTPSERVICE_SYNCHRONIZE_API = "http://10.232.83.21:9998/ws/synchronize/httpservices";
 
-    private static final String MQSERVICE_SYNCHRONIZE_API = "http://localhost:8080/sync/service-mq";
+//    private static final String MQSERVICE_SYNCHRONIZE_API = "http://localhost:8080/sync/service-mq";
+    private static final String MQSERVICE_SYNCHRONIZE_API = "http://10.232.83.21:9998/ws/synchronize/mqservices";
 
     public String getHttpService() {
         return getData(HTTPSERVICE_SYNCHRONIZE_API);
@@ -42,17 +44,19 @@ public class SyncService {
     }
 
     public static String getData(String url) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
-
-        Response response = null;
-        String data = "";
-        try {
-            response = client.newCall(request).execute();
-            data = response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(url).get().build();
+//
+//        Response response = null;
+//        String data = "";
+//        try {
+//            response = client.newCall(request).execute();
+//            data = response.body().string();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        SyncSoap syncSoap = new SyncSoap();
+        String data = syncSoap.getXMLdata(url);
         return data;
     }
 

@@ -26,11 +26,14 @@ public class SyncRoute {
     @Resource
     RouteDao routeDao;
 
-    private static final String MQSUBSCRIBE_SYNCHRONIZE_API = "http://localhost:8080/sync/route-mq";
+//    private static final String MQSUBSCRIBE_SYNCHRONIZE_API = "http://localhost:8080/sync/route-mq";
+    private static final String MQSUBSCRIBE_SYNCHRONIZE_API = "http://10.232.83.21:9998/ws/synchronize/mqsubscribes";
 
-    private static final String RESTSUBSCRIBE_SYNCHRONIZE_API = "http://localhost:8080/sync/route-rest";
+//    private static final String RESTSUBSCRIBE_SYNCHRONIZE_API = "http://localhost:8080/sync/route-rest";
+    private static final String RESTSUBSCRIBE_SYNCHRONIZE_API = "http://10.232.83.21:9998/ws/synchronize/restsubscribes";
 
-    private static final String WSSUBSCRIBE_SYNCHRONIZE_API = "http://localhost:8080/sync/route-ws";
+//    private static final String WSSUBSCRIBE_SYNCHRONIZE_API = "http://localhost:8080/sync/route-ws";
+    private static final String WSSUBSCRIBE_SYNCHRONIZE_API = "http://10.232.83.21:9998/ws/synchronize/wssubscribes";
 
     public String getMqsubscribe() {
         return getData(MQSUBSCRIBE_SYNCHRONIZE_API);
@@ -45,17 +48,19 @@ public class SyncRoute {
     }
 
     public static String getData(String url) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).get().build();
-
-        Response response = null;
-        String data = "";
-        try {
-            response = client.newCall(request).execute();
-            data = response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(url).get().build();
+//
+//        Response response = null;
+//        String data = "";
+//        try {
+//            response = client.newCall(request).execute();
+//            data = response.body().string();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        SyncSoap syncSoap = new SyncSoap();
+        String data = syncSoap.getXMLdata(url);
         return data;
     }
 
@@ -82,30 +87,42 @@ public class SyncRoute {
 
         List<HashMap<String, String>> mqSourceData = this.getSourceData(mqXmlData);
         List<HashMap<String, String>> mqDefineData = new ArrayList<>();
-        for (HashMap<String, String> pair1 : mqSourceData)  {
-            HashMap<String, String> mdata = new HashMap<>();
-            mdata = this.defineData("mq", pair1);
-            mqDefineData.add(mdata);
-            routeDao.insert(mdata);
+
+        if (mqSourceData.size() != 0) {
+            for (HashMap<String, String> pair1 : mqSourceData)  {
+                HashMap<String, String> mdata = new HashMap<>();
+                mdata = this.defineData("mq", pair1);
+                mqDefineData.add(mdata);
+                routeDao.insert(mdata);
+            }
         }
+
 
         List<HashMap<String, String>> restSourceData = this.getSourceData(restXmlData);
         List<HashMap<String, String>> restDefineData = new ArrayList<>();
-        for (HashMap<String, String> pair2 : restSourceData)  {
-            HashMap<String, String> rdata = new HashMap<>();
-            rdata = this.defineData("rest", pair2);
-            restDefineData.add(rdata);
-            routeDao.insert(rdata);
+
+        if (restSourceData.size() != 0) {
+            for (HashMap<String, String> pair2 : restSourceData)  {
+                HashMap<String, String> rdata = new HashMap<>();
+                rdata = this.defineData("rest", pair2);
+                restDefineData.add(rdata);
+                routeDao.insert(rdata);
+            }
         }
+
 
         List<HashMap<String, String>> wsSourceData = this.getSourceData(wsXmlData);
         List<HashMap<String, String>> wsDefineData = new ArrayList<>();
-        for (HashMap<String, String> pair3 : wsSourceData)  {
-            HashMap<String, String> wdata = new HashMap<>();
-            wdata = this.defineData("ws", pair3);
-            wsDefineData.add(wdata);
-            routeDao.insert(wdata);
+
+        if (wsSourceData.size() != 0) {
+            for (HashMap<String, String> pair3 : wsSourceData)  {
+                HashMap<String, String> wdata = new HashMap<>();
+                wdata = this.defineData("ws", pair3);
+                wsDefineData.add(wdata);
+                routeDao.insert(wdata);
+            }
         }
+
 
         int count = mqDefineData.size() + restDefineData.size() + wsDefineData.size();
         response.put("count", count);
@@ -163,35 +180,36 @@ public class SyncRoute {
                     list = new ArrayList<HashMap<String, String>>();
                     for (Element e : systemUsers) {
                         List<Element> li = e.elements();
-                        HashMap<String, String> item = (HashMap<String, String>) headMap.clone();
-                        ArrayList<HashMap<String, String>> items = new ArrayList();
-                        for (Element element2 : li) {
-                            String key = element2.getName();
-                            String value = element2.getText();
-                            item.put(key, value);
-                        }
-                        String[] sender = item.get("Svc_Sender").split(",");
-                        String[] receiver = item.get("Svc_Receiver").split(",");
-                        if (sender.length != 1 && sender.length > 0) {
-                            for (int i = 0; i < sender.length; i ++) {
-                                HashMap<String, String> item_copy = (HashMap<String, String>) item.clone();
-                                item_copy.put("Svc_Sender", sender[i]);
-                                items.add(item_copy);
+                        if (li.size() != 0) {
+                            HashMap<String, String> item = (HashMap<String, String>) headMap.clone();
+                            ArrayList<HashMap<String, String>> items = new ArrayList();
+                            for (Element element2 : li) {
+                                String key = element2.getName();
+                                String value = element2.getText();
+                                item.put(key, value);
+                            }
+                            String[] sender = item.get("Svc_Sender").split(",");
+                            String[] receiver = item.get("Svc_Receiver").split(",");
+                            if (sender.length != 1 && sender.length > 0) {
+                                for (int i = 0; i < sender.length; i ++) {
+                                    HashMap<String, String> item_copy = (HashMap<String, String>) item.clone();
+                                    item_copy.put("Svc_Sender", sender[i]);
+                                    items.add(item_copy);
+                                }
+                            }
+                            if (receiver.length != 1 && receiver.length > 0) {
+                                for (int i = 0; i < receiver.length; i ++) {
+                                    HashMap<String, String> item_copy = (HashMap<String, String>) item.clone();
+                                    item_copy.put("Svc_Receiver", receiver[i]);
+                                    items.add(item_copy);
+                                }
+                            }
+                            if (items.isEmpty()) {
+                                list.add(item);
+                            } else {
+                                list.addAll(items);
                             }
                         }
-                        if (receiver.length != 1 && receiver.length > 0) {
-                            for (int i = 0; i < receiver.length; i ++) {
-                                HashMap<String, String> item_copy = (HashMap<String, String>) item.clone();
-                                item_copy.put("Svc_Receiver", receiver[i]);
-                                items.add(item_copy);
-                            }
-                        }
-                        if (items.isEmpty()) {
-                            list.add(item);
-                        } else {
-                            list.addAll(items);
-                        }
-
                     }
                 }
             }
