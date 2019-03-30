@@ -197,15 +197,14 @@ export default {
 
     },
     handleDetail(index, row) {
-      // var loading = this.$loading({
-      //     lock: true,
-      //     text: '正在拉取日志详情',
-      //     spinner: 'el-icon-loading',
-      //     background: 'rgba(0, 0, 0, 0.7)'
-      //   });
+      var loading = this.$loading({
+          lock: true,
+          text: '正在拉取日志详情',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
       this.axios.post(this.api + '/selectmsgbynumber', { serial_number: row.serial_NUMBER }).then((response) => {
-        // loading.close();
-        this.detailVisible = true;
+        loading.close();
         var datas = response.data.data;
         this.detailData.sender_org = datas[0].sender_ORG;
         this.detailData.sender = datas[0].sender;
@@ -214,23 +213,37 @@ export default {
         this.detailData.service_code = datas[0].service_CODE;
         this.detailData.service_version = datas[0].service_VERSION;
         if (datas[0].msg_TYPE === 1) {
-          this.detailData.requestDate = datas[0].log_TIMESTAMP;
-          this.detailData.responseDate = datas[1].log_TIMESTAMP;
-          this.detailData.requestMsg = datas[0].msg;
-          this.detailData.responseMsg = datas[1].msg;
+          if (datas.length === 2) {
+            this.detailData.requestDate = datas[0].log_TIMESTAMP;
+            this.detailData.responseDate = datas[1].log_TIMESTAMP;
+            this.detailData.requestMsg = datas[0].msg;
+            this.detailData.responseMsg = datas[1].msg;
+          }
+          if (datas.length === 1) {
+            this.detailData.requestDate = datas[0].log_TIMESTAMP;
+            this.detailData.requestMsg = datas[0].msg;
+          }
+          
         } else {
-          this.detailData.requestDate = datas[1].log_TIMESTAMP;
-          this.detailData.responseDate = datas[0].log_TIMESTAMP;
-          this.detailData.requestMsg = datas[1].msg;
-          this.detailData.responseMsg = datas[0].msg;
+          if (datas.length === 2) {
+            this.detailData.requestDate = datas[1].log_TIMESTAMP;
+            this.detailData.responseDate = datas[0].log_TIMESTAMP;
+            this.detailData.requestMsg = datas[1].msg;
+            this.detailData.responseMsg = datas[0].msg;
+          }
+          if (datas.length ===1) {
+            this.detailData.responseDate = datas[0].log_TIMESTAMP;
+            this.detailData.responseMsg = datas[0].msg;
+          }
+          
         }
         if (datas[0].msg_TYPE === 3 || datas[1].msg_TYPE === 3) {
           this.detailData.isSuccess = false;
         }
-        // this.detailVisible = true;
+        this.detailVisible = true;
 
       }).catch(error => {
-        // loading.close()
+        loading.close()
       })
     },
     handleCurrentChange(val) {
