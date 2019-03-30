@@ -205,6 +205,7 @@ export default {
         });
       this.axios.post(this.api + '/selectmsgbynumber', { serial_number: row.serial_NUMBER }).then((response) => {
         loading.close();
+        this.detailVisible = true;
         var datas = response.data.data;
         this.detailData.sender_org = datas[0].sender_ORG;
         this.detailData.sender = datas[0].sender;
@@ -222,6 +223,8 @@ export default {
           else {
             this.detailData.requestDate = datas[0].log_TIMESTAMP;
             this.detailData.requestMsg = datas[0].msg;
+            this.detailData.responseDate = '无记录';
+            this.detailData.responseMsg = '无记录';
           }
           
         } else {
@@ -234,13 +237,15 @@ export default {
           else {
             this.detailData.responseDate = datas[0].log_TIMESTAMP;
             this.detailData.responseMsg = datas[0].msg;
+            this.detailData.requestDate = '无记录';
+            this.detailData.requestDate = '无记录';
           }
           
         }
         if (datas[0].msg_TYPE === 3 || datas[1].msg_TYPE === 3) {
           this.detailData.isSuccess = false;
         }
-        this.detailVisible = true;
+        // this.detailVisible = true;
 
       }).catch(error => {
         loading.close()
