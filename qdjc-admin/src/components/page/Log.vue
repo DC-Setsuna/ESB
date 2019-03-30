@@ -213,25 +213,25 @@ export default {
         this.detailData.service_code = datas[0].service_CODE;
         this.detailData.service_version = datas[0].service_VERSION;
         if (datas[0].msg_TYPE === 1) {
-          if (datas.length === 2) {
+          if (datas.length > 1) {
             this.detailData.requestDate = datas[0].log_TIMESTAMP;
             this.detailData.responseDate = datas[1].log_TIMESTAMP;
             this.detailData.requestMsg = datas[0].msg;
             this.detailData.responseMsg = datas[1].msg;
           }
-          if (datas.length === 1) {
+          else {
             this.detailData.requestDate = datas[0].log_TIMESTAMP;
             this.detailData.requestMsg = datas[0].msg;
           }
           
         } else {
-          if (datas.length === 2) {
+          if (datas.length > 1) {
             this.detailData.requestDate = datas[1].log_TIMESTAMP;
             this.detailData.responseDate = datas[0].log_TIMESTAMP;
             this.detailData.requestMsg = datas[1].msg;
             this.detailData.responseMsg = datas[0].msg;
           }
-          if (datas.length ===1) {
+          else {
             this.detailData.responseDate = datas[0].log_TIMESTAMP;
             this.detailData.responseMsg = datas[0].msg;
           }
