@@ -197,14 +197,14 @@ export default {
 
     },
     handleDetail(index, row) {
-      var loading = this.$loading({
-          lock: true,
-          text: '正在拉取日志详情',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
+      // var loading = this.$loading({
+      //     lock: true,
+      //     text: '正在拉取日志详情',
+      //     spinner: 'el-icon-loading',
+      //     background: 'rgba(0, 0, 0, 0.7)'
+      //   });
       this.axios.post(this.api + '/selectmsgbynumber', { serial_number: row.serial_NUMBER }).then((response) => {
-        loading.close();
+        // loading.close();
         this.detailVisible = true;
         var datas = response.data.data;
         this.detailData.sender_org = datas[0].sender_ORG;
@@ -248,7 +248,7 @@ export default {
         // this.detailVisible = true;
 
       }).catch(error => {
-        loading.close()
+        // loading.close()
       })
     },
     handleCurrentChange(val) {
