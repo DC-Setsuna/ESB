@@ -1,5 +1,6 @@
 package com.admin.adminsystem.controller;
 
+import com.admin.adminsystem.dao.SystemUserDao;
 import com.admin.adminsystem.entity.Msgflow_LogEntity;
 import com.admin.adminsystem.jpa.Msgflow_LogJPA;
 import com.alibaba.fastjson.JSON;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -31,6 +33,9 @@ public class Msgflow_LogController {
      */
     @Autowired
     Msgflow_LogJPA msgflow;
+
+    @Resource
+    SystemUserDao dao;
 
     /**
      * Select by condition json object.
@@ -64,6 +69,11 @@ public class Msgflow_LogController {
                     String max = JSON.parseObject(info).get("maxdate").toString();
                     predicates.add(criteriaBuilder.lessThan(root.get("LOGTIMESTAMP"), Timestamp.valueOf(max)));
                 }
+
+                if(null != JSON.parseObject(info).get("service_code").toString() && !JSON.parseObject(info).get("service_code").toString().equals("")){
+                    predicates.add(criteriaBuilder.equal(root.get("SERVICE_CODE"), JSON.parseObject(info).get("service_code").toString()));
+                }
+
                 // Determines if there is a sender_org variable in the request, and if so, this field is added as a condition to the SQL statement
                 if(null != JSON.parseObject(info).get("sender_org").toString() && !JSON.parseObject(info).get("sender_org").toString().equals("")){
                     predicates.add(criteriaBuilder.equal(root.get("SENDER_ORG"), JSON.parseObject(info).get("sender_org").toString()));
@@ -160,5 +170,23 @@ public class Msgflow_LogController {
         list.put("message","ok");
         list.put("data",resultList);
         return list;
+    }
+
+    @RequestMapping(value = "/api/msgflow/systemuser", method = RequestMethod.GET)
+    public HashMap<String, ArrayList> systemuser() {
+        List<HashMap<String, String>> results = dao.selectSystemuser();
+
+        HashMap<String, ArrayList> response = new HashMap<>();
+
+        for(HashMap result : results) {
+            if(response.keySet().contains(result.get("SYSTEMUSER_ORG"))) {
+                response.get(result.get("SYSTEMUSER_ORG")).add(result.get("SYSTEMUSER_CODE"));
+            } else {
+                response.put((String) result.get("SYSTEMUSER_ORG"), new ArrayList());
+                response.get(result.get("SYSTEMUSER_ORG")).add(result.get("SYSTEMUSER_CODE"));
+            }
+        }
+
+        return response;
     }
 }

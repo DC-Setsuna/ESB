@@ -19,32 +19,39 @@
             </el-form-item>
             <div>
               <el-form-item label="服务接收平台">
-                <el-select v-model="filter.receiver_org">
-                  <el-option v-for="item in this.$store.state.platform" :label="item.label" :value="item.value">
+                <el-select v-model="filter.receiver_org" @change="receiveChange">
+                  <el-option v-for="item in this.platforms" :label="item" :value="item">
                   </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="服务接收系统">
                 <el-select v-model="filter.receiver">
-                  <el-option v-for="item in this.$store.state.system.MDXP" :label="item.label" :value="item.value">
+                  <el-option v-for="item in this.receiveOrg" :label="item" :value="item">
                   </el-option>
                 </el-select>
               </el-form-item>
             </div>
             <div>
               <el-form-item label="服务发送平台">
-                <el-select v-model="filter.sender_org">
-                  <el-option v-for="item in this.$store.state.platform" :label="item.label" :value="item.value">
+                <el-select v-model="filter.sender_org"  @change="senderChange">
+                  <el-option v-for="item in this.platforms" :label="item" :value="item">
                   </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="服务发送系统">
                 <el-select v-model="filter.sender">
-                  <el-option v-for="item in this.$store.state.system.MDXP" :label="item.label" :value="item.value">
+                  <el-option v-for="item in this.senderOrg" :label="item" :value="item">
                   </el-option>
                 </el-select>
               </el-form-item>
             </div>
+
+            <div>
+              <el-form-item label="服务编码">
+                <el-input v-model="filter.service_code" style="width: 400px"></el-input>
+              </el-form-item>
+            </div>
+
             <div>
               <el-form-item>
                 <el-switch v-model="filter.showError" active-text="不包含错误信息" inactive-text="所有日志记录">
@@ -121,7 +128,8 @@ export default {
         sender_org: '',
         sender: '',
         receiver_org: '',
-        receiver: ''
+        receiver: '',
+        service_code: ''
       },
       form: {
         mindate: '',
@@ -131,7 +139,8 @@ export default {
         receiver_org: '',
         receiver: '',
         type: false,
-        page:'1'
+        page:'1',
+        service_code: ''
       },
       tableData: [],
       tableVisibleData: [],
@@ -177,13 +186,24 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }]
-      }
+      },
+      systemusers: {},
+      platforms: [],
+      platformsMap: {
+        'DDXP': '数据交换平台',
+        'ADXP': '生产运行平台',
+        'MDXP': '管理运行平台',
+        'SDXP': '安全运行平台',
+        'FDXP': '服务运行平台'
+      },
+      receiveOrg: [],
+      senderOrg: []
     }
   },
   methods: {
     getData() {
+      this.form.page = '1'
       this.axios.post(this.api + '/selectmsg', this.form).then((response) => {
-        console.log(response.data);
         this.tableVisibleData = response.data.data;
         if(this.tableVisibleData != '' || this.tableVisibleData != null){
           for (let i = 0;i < this.tableVisibleData.length;i++)
@@ -267,11 +287,25 @@ export default {
     //   this.tableVisibleData = data;
     // },
     clear() {
-      this.filter['LOG_TIMESTAMP'] = '',
-      this.filter['sender_org'] = '',
-      this.filter['sender'] = '',
-      this.filter['receiver_org'] = '',
+      this.filter['LOG_TIMESTAMP'] = ''
+      this.filter['sender_org'] = ''
+      this.filter['sender'] = ''
+      this.filter['receiver_org'] = ''
       this.filter['receiver'] = ''
+      this.filter['service_code'] = ''
+    },
+    getSystemusers() {
+      this.axios.get(this.api + '/systemuser').then(response => {
+        this.systemusers = response.data
+        this.platforms = Object.keys(response.data)
+      })
+    },
+    receiveChange(value) {
+      this.receiveOrg = this.systemusers[value]
+    },
+    senderChange(value) {
+      console.log(value)
+      this.senderOrg = this.systemusers[value]
     }
   },
   watch: {
@@ -284,12 +318,19 @@ export default {
         this.form.receiver_org = this.filter.receiver_org;
         this.form.receiver = this.filter.receiver;
         this.form.type = this.filter.showError;
+        this.form.service_code = this.filter.service_code;
       },
       deep: true
     },
     cur_page: function() {
       this.setVisibleData();
     }
+  },
+  created: function() {
+    this.getSystemusers()
+  },
+  computed: {
+    
   }
 }
 

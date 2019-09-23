@@ -16,4 +16,7 @@
     <delete id="deleteSystem">
         DELETE FROM SYSTEMUSER
     </delete>
+    <select id="selectSystemuser" resultType="java.util.HashMap">
+        SELECT DISTINCT SYSTEMUSER_ORG, SYSTEMUSER_CODE FROM ESB.SYSTEMUSER
+    </select>
 </mapper>
