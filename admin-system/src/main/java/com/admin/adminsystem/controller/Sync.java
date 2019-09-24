@@ -107,7 +107,8 @@ public class Sync {
                                 value = element2.getText();
                             }
 
-                            item.put(key, value);
+//                            item.put(key, value);
+                            item.put(value, element2.getText());
 //                            if (key.equals("PK_SYSTEMUSER")) {
 //                                item.put("PK_SYSTEMUSER", UUID.randomUUID().toString().replace("-","").toLowerCase());
 //                            } else {

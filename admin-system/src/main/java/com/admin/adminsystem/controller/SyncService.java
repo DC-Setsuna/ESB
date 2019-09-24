@@ -123,10 +123,10 @@ public class SyncService {
             data.put("TYPE", "M");
         }
 
-        data.put("REMARK", d.get("Svc_Desc"));
+        data.put("REMARK", d.containsKey("Svc_Desc") ? d.get("Svc_Desc") : "");
         data.put("CREATOR", "Admin");
         data.put("MODIFIER", "Admin");
-        data.put("SVC_TYPE", d.get("Svc_Desc"));
+        data.put("SVC_TYPE", d.containsKey("Svc_Desc") ? d.get("Svc_Desc") : "");
         if (type == "http"){
             data.put("SVC_PROXYURL", d.get("Svc_ProxyUrl"));
             data.put("SVC_REALURL", d.get("Svc_RealUrl"));
@@ -134,7 +134,7 @@ public class SyncService {
             data.put("SVC_PROXYURL", "");
             data.put("SVC_REALURL", "");
         }
-        data.put("SVC_EXAMPLE", d.get("Svc_Example"));
+        data.put("SVC_EXAMPLE", d.containsKey("SVC_EXAMPLE") ? d.get("Svc_Example") : "");
 
         return data;
     }
