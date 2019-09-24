@@ -201,8 +201,10 @@ export default {
     }
   },
   methods: {
-    getData() {
-      this.form.page = '1'
+    getData(val) {
+      if(val === undefined) {
+        this.form.page = '1'
+      }
       this.axios.post(this.api + '/selectmsg', this.form).then((response) => {
         this.tableVisibleData = response.data.data;
         if(this.tableVisibleData != '' || this.tableVisibleData != null){
@@ -273,7 +275,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.form.page = val
-      this.getData()
+      this.getData(val)
     },
     // setVisibleData() {
     //   var start = 10 * (this.cur_page - 1) + 1;
